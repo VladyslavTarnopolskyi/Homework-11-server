@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList Homework 11</title>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+    <script src="node_modules/materialize-css/bin/materialize.js"></script>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="node_modules/materialize-css/bin/materialize.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="wrapper">
+        <h1>ToDo List</h1>
+        <div class="input-field col s12">
+            <label for="todo-enter">Enter text</label>
+            <input type="text" id="todo-enter" class="validate">
+            <button id="add-press" class="waves-effect waves-light btn-large">Add</button>
+            <div class="task">Done Item: <span id="counter"></span></div>
+            <div class="task">Not Done Item: <span id="counterOfNotDone"></span></div>
+        </div>
+        <ul id="todo-list"></ul>
+        <div id="edit">
+            <div id="popup" class="input-field">
+                <label for="copyLi"></label>
+                <input type="text" id="copyLi">
+                <button id="save" class="waves-effect waves-light btn">Save</button>
+                <button id="cancel" class="waves-effect waves-light btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
