@@ -6,6 +6,17 @@ $(document).ready(function () {
     $(document).on('click', '.text-todo', selectItem);
     $(document).on('click', '.edit-item', editItem);
 
+    function saveDB() {
+        var saveTodo = todoList.html();
+        $.ajax({
+            type: 'POST',
+            url: 'api/v1/items',
+            data: {
+                name: saveTodo
+            }
+        });
+     }
+
     function addTodoItem() {
         var addItem = $('#todo-enter').val();
         if(addItem !== '') {
@@ -14,9 +25,11 @@ $(document).ready(function () {
                 + '<button class="edit-item waves-effect waves-light btn">Edit</button>'
                 + '</li>');
             $('#todo-enter').val('');
+
         }else {
             alert('write something');
         }
+        saveDB();
         counter();
     }
 
