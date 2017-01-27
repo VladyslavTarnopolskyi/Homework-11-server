@@ -12,9 +12,11 @@
     "mongodb": "^2.2.21",
     "mongoose": "^4.7.7"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --debug app.js"
   },
   "author": "",
   "license": "ISC"
