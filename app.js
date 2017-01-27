@@ -1,11 +1,10 @@
 'use strict';
 
-let express = require('express');
-let bodyParser = require('body-parser');
-let app = express();
-
-let config = require('./config'),
-    item = require('./items/item');
+const express = require('express'),
+    bodyParser = require('body-parser'),
+    app = express(),
+    config = require('./config'),
+    todo = require('./todos/todo');
 
 require('./db');
 
@@ -17,12 +16,13 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
-app.use('/api/v1', item);
+app.use(bodyParser.json());
 
-//error handling
+app.use('/api/v1', todo);
+
+// error handling
 // app.use((req, res, next) => {
 //     const err = new Error(`Not Found ${req.path}`);
 //     err.status = 404;
