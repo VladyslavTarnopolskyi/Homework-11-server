@@ -57,7 +57,17 @@ $(document).ready(function () {
         counter();
     }
 
-    function deleteItem() {
+    function deleteItem(e) {
+        let texts = $(e.target).siblings('span').text();
+        console.log(texts);
+        $.ajax({
+            type: 'DELETE',
+            contentType: 'application/json',
+            url: '/api/v1/todo/' + texts,
+            success: function(){
+                console.log("success DELETE");
+            }
+        });
         $(this).parent().remove();
         counter();
     }

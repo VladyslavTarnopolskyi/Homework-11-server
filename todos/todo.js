@@ -24,5 +24,13 @@ router.post('/todo', (req, res, next) => {
         })
         .catch(next);
 });
+router.delete('/todo/:item', (req, res, next) => {
+    Todo.remove({ item: req.params.item}, function (err) {
+        if (err) {
+            res.send(err);
+        }
+    })
+        .catch(next);
+});
 
 module.exports = router;
