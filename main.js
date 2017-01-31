@@ -1,14 +1,14 @@
 $(document).ready(function () {
-    var todoList = $('#todo-list');
+    let todoList = $('#todo-list');
 
     $(document).on('click', '.del-item', deleteItem);
     $(document).on('click', '.text-todo', selectItem);
     $(document).on('click', '.edit-item', editItem);
 
     $('#add-press').on('click', function () {
-        var addItem = $('#todo-enter').val();
+        let addItem = $('#todo-enter').val();
         if(addItem !== '') {
-            todoList.prepend('<li class="box">' + '<span class="text-todo">' + addItem + '</span>'
+            todoList.append('<li class="box">' + '<span class="text-todo">' + addItem + '</span>'
                 + '<button class="del-item waves-effect waves-light btn">X</button>'
                 + '<button class="edit-item waves-effect waves-light btn">Edit</button>'
                 + '</li>');
@@ -36,8 +36,8 @@ $(document).ready(function () {
         contentType: 'application/json',
         url: '/api/v1/todo',
         success: function (data) {
-            for(var i = 0; i < data.length; i++){
-                todoList.prepend('<li class="box">' + '<span class="text-todo">'  + data[i].item + '</span>'
+            for(let i = 0; i < data.length; i++){
+                todoList.append('<li class="box">' + '<span class="text-todo">'  + data[i].item + '</span>'
                     + '<button class="del-item waves-effect waves-light btn">X</button>'
                     + '<button class="edit-item waves-effect waves-light btn">Edit</button>'
                     + '</li>');
@@ -72,22 +72,31 @@ $(document).ready(function () {
         counter();
     }
 
-    function editItem(){
-        var textItem = $(this).siblings('span');
+    function editItem() {
+        let textItem = $(this).siblings('span');
         $('#copyLi').val(textItem.text());
         $('#edit').css('display', 'block');
         $('#save').on('click', function () {
-            textItem.text($('#copyLi').val());
+            $.ajax({
+                type: 'PUT',
+                contentType: 'application/json',
+                url: 'api/v1/todo/' + textItem.text(),
+                data: JSON.stringify({ "todo": {"item": $('#copyLi').val()}}),
+                success: function () {
+                    textItem.text($('#copyLi').val());
+                    console.log("success PUT");
+                }
+            });
             $('#edit').css('display', 'none');
         });
-        $('#cancel').on('click', function (){
+        $('#cancel').on('click', function () {
             $('#edit').css('display', 'none');
         });
     }
 
     function counter() {
-        var notDoneItem = $('li').length;
-        var doneItem = $('.checked').length;
+        let notDoneItem = $('li').length;
+        let doneItem = $('.checked').length;
         $('#counterOfNotDone').text(notDoneItem - doneItem);
         $('#counter').text(doneItem);
     }
